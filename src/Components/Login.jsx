@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { loginRequest } from "../Redux/Auth/action";
 import { useDispatch, useSelector } from "react-redux";
-import Style from "./Style.module.css";
-import { Redirect } from "react-router-dom";
+import { Redirect,Link } from "react-router-dom";
+
+import {TextField,Button, Paper ,Divider} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  login_paper: {
+    width:"600px",
+    margin: "50px auto",
+    padding: "30px",
+  },
+  input_box: {
+    width:"70%"
+  }
+}));
 
 export default function Login(props) {
   const [query, setQuery] = useState({ email: "", password: "" });
@@ -10,6 +24,7 @@ export default function Login(props) {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isError = useSelector((state) => state.auth.isError);
   const message = useSelector((state) => state.auth.message);
+  const classes = useStyles();
 
   const handleLogin = () => {
 
@@ -26,28 +41,47 @@ export default function Login(props) {
   }
   
   return (
-    <div className={Style.login_div}>
+
+  <Paper  elevation={3} className={classes.login_paper} >
+     <img style={{width:"80px"}} src="logo.fa05071f.svg" alt="logo"/>
       <h1>Login</h1>
+      
       <div>
-        <input
-        type="email"
+      <TextField
+          className={classes.input_box}
+          id="outlined-error-helper-text"
+          label="Email"
+          defaultValue=""
           value={query.email}
           onChange={(e) => setQuery({...query, email: e.target.value})}
-          placeholder="Email"
+          variant="outlined"
         />
       </div>
       <div>
-        <input
-        type="password"
+        <br/>
+      <TextField
+      className={classes.input_box}
+          id="outlined-error-helper-text"
+          label="password"
+          defaultValue=""
           value={query.password}
           onChange={(e) => setQuery({...query, password: e.target.value})}
-          placeholder="Password"
+          variant="outlined"
         />
       </div>
-      {isError ? <small>{message}</small> : null}
+      <br/>
+      {isError ? <small style={{color:"red"}}>{message}</small> : null}
       <div>
-        <button onClick={handleLogin}>Login</button>
+        <br/>
+      <Button variant="contained" color="primary" onClick={handleLogin}>
+        Login
+      </Button>
       </div>
-    </div>
+      <br/>
+      <Divider />
+      <br/>
+      <h3>Don't have a account</h3>
+      <button><Link to="/register">Sign Up</Link></button>
+    </Paper>
   );
 }

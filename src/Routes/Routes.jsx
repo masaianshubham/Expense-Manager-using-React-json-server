@@ -12,7 +12,7 @@ function Routes(){
         <Route path="/" exact render={()=> <Landing/>}/>
         <Route path="/login" render={()=> <Login/>}/>
         <Route path="/register" render={()=> <Register/>}/>
-        <Route path="/dashboard" render={()=> <Dashboard/>}/>
+        {/* <Route path="/dashboard" render={()=> <Dashboard/>}/> */}
         <Route path="/ledger" render={() => <Ledger/>}/>
         </>
     )
