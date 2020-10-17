@@ -1,6 +1,5 @@
-import {
-    
-} from "./actionTypes"
+import { REGISTER_USERS_REQUEST, REGISTER_USERS_SUCCESS, REGISTER_USERS_FAILURE, 
+    LOGIN_USERS_REQUEST,LOGIN_USERS_SUCCESS,LOGIN_USERS_FAILURE,LOGOUT_USER,REMOVE_ERROR, } from "./actionType"
 
 export const initState = {
     isLoading: false,
@@ -49,26 +48,27 @@ export default (state = initState, { type, payload }) => {
                 isLoading: false,
                 isError: false,
                 isAuth: true,
-                token: payload.token,
-                current_user: payload.username
+                user_data: payload
             }
         case LOGIN_USERS_FAILURE:
             return {
                 ...state,
                 isLoading: false,
                 isError: true,
-                message: payload.message,
+                message: payload,
             }
-
         case LOGOUT_USER:
             return {
                 ...state,
                 isAuth: false,
                 user_data: {},
-                github_data:[]
-
             }
-
+        case REMOVE_ERROR:
+            return {
+                ...state,
+                message:"",
+                isError:false
+            }
         default:
             return state
     }

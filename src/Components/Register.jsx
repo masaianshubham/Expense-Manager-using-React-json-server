@@ -1,93 +1,59 @@
-import React from "react";
-import { registerRequest } from "../redux/actions";
-import { connect } from "react-redux";
-import Style from "./index.module.css";
+import React, { useState, useEffect } from "react";
+import { registerRequest,verifyEmail } from "../Redux/Auth/action";
+import { useDispatch, useSelector } from "react-redux";
+import Style from "./Style.module.css";
+
+export default function Register (props) {
+  const [query, setQuery] = useState({ name:"", email: "", password: "" });
+  const dispatch = useDispatch();
+  const isError = useSelector((state) => state.auth.isError);
+  const message = useSelector((state) => state.auth.message);
 
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
+const  handleRegister = (e) => {
 
-    this.state = {
-        name: "",
-        email: "",
-        password: "",
-    };
-  }
+  e.preventDefault()
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleRegister = () => {
     let payload = {
-      ...this.state
-    }
-    this.props.registerRequest(payload);
+      ...query,
+    };
+    dispatch(registerRequest(payload));
   };
 
-
-  render() {
-    const { name,
-    email,
-    password,
-    username,
-    mobile,
-    description, } = this.state;
+const verifyInputEmail = () => {
+  dispatch(verifyEmail(query.email));
+}
     return (
       <div className={Style.reg_form_div}>
         <h1>Register with us</h1>
+        <form onSubmit={handleRegister}>
         <input
-            name="name"
-            value={name}
-            placeholder="Name"
-            onChange={this.handleChange}
-          />
-          <input
-            name="email"
-            value={email}
-            placeholder="Email"
-            onChange={this.handleChange}
-          />
-          <input
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-          <input
-            name="username"
-            value={username}
-            placeholder="User Name"
-            onChange={this.handleChange}
-          />
-          <input
-            name="mobile"
-            value={mobile}
-            placeholder="Mobile"
-            onChange={this.handleChange}
-          />
-          <input
-            name="description"
-            value={description}
-            placeholder="Description"
-            onChange={this.handleChange}
-          />
-          <button onClick={this.handleRegister}>Register</button>
+        type="text"
+        minLength="4"
+        required
+          value={query.name}
+          onChange={(e) => setQuery({...query, name: e.target.value})}
+          placeholder="Name"
+        />
+        <input
+        required
+        type="email"
+          value={query.email}
+          onChange={(e) => setQuery({...query, email: e.target.value})}
+          placeholder="Email"
+        />
+        <input
+        required
+        type="password"
+        minLength="6"
+          value={query.password}
+          onChange={(e) => setQuery({...query, password: e.target.value})}
+          placeholder="Password"
+          onFocus={verifyInputEmail}
+        />
+        {isError ? <small>{message}</small> : null}
+        <button>Register</button>
+        </form>
       </div>
     );
-  }
 }
-
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  registerRequest: (payload) => dispatch(registerRequest(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
