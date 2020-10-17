@@ -48,7 +48,7 @@ export const registerRequest = payload => dispatch => {
                 axios.post("https://mod-living-db.herokuapp.com/user", {
                     id: uuid(), ...payload
                 })
-                    .then(res => dispatch(registerUserSuccess("")))
+                    .then(res => dispatch(registerUserSuccess("Registration Sucessfull")))
                     .catch(err => {
                         dispatch(registerUserFailure("Something went wrong"))
                         dispatch(handleError())
