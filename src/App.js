@@ -1,12 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import './App.css';
-// import { Dashboard } from './Components/Dashboard';
 import { Routes } from './Routes/Routes';
+import Navbar from "./Components/Navbar"
 
 function App() {
   return (
     <div className="App">
       <Routes />
+      <Navbar/>
     </div>
   );
 }
