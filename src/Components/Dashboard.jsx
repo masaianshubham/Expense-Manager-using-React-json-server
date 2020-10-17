@@ -16,7 +16,8 @@ const [formData, setFormData] = useState({title:"",amount:"", type:""})
 const dispatch = useDispatch()
 const data = useSelector(state => state.expense.transactionData)
 const [chartData, setChartData] = useState({})
-
+const userId = useSelector(state => state.auth.user_data[0].id)
+console.log(userId)
     
 useEffect(() => {
     dispatch(fetchTransaction())
@@ -33,7 +34,7 @@ useEffect(() => {
     let balance =0
     let totalDebit = 0
     if(data){
-        userData = data.filter(item => item.user_id===1)
+        userData = data.filter(item => item.user_id===userId)
         credit = userData.filter(item=> item.type=="credit").map(item=>item.amount)
         debit = userData.filter(item=> item.type=="debit").map(item=>item.amount)
         for(let i=0;i<credit.length;i++){
@@ -54,7 +55,7 @@ useEffect(() => {
                     datasets: [{
                         // label: 'Attendance',
                         data: [totalCredit,totalDebit,balance],
-                        backgroundColor: ["rgb(255,142,100)","rgb(225,142,100)","rgb(255,102,100)"]}
+                        backgroundColor: ["rgb(255,142,100)","rgb(157, 0, 0)","rgb(255,102,100)"]}
                     ]
                 
         })
@@ -75,9 +76,11 @@ useEffect(() => {
     console.log(formData)
     return (
         <div style={{marginBottom: 50}}>
-            <Link to='/ledger'><i class="fas fa-book" style={{fontSize:"30px", position:"absolute",top:"20px", right:"40px"}}></i></Link>
+            <Link to='/ledger'><i class="fas fa-book" style={{fontSize:"30px", position:"absolute",top:"20px", right:"70px"}}></i><p style={{fontSize:"15px", position:"absolute",top:"40px", right:"15px"}}>View all transaction</p></Link>
             <h2>Dashboard</h2>
-            <h3>Balance: ₹{balance}</h3>
+            <div style={{fontSize:30}}>
+                <h3>Balance: ₹{balance}</h3>
+            </div>
             {userData && <div className={styles.dashboardCard}>
                     <div>
                         Income

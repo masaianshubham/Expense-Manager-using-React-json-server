@@ -42,12 +42,13 @@ export const addTransactionFailure = () => ({
     type: ADD_TRANSACTION_FAILURE
 })
 
-export const addTransaction = (payload) => (dispatch) => {
-    console.log("trans")
+export const addTransaction = (payload) => (dispatch, getState) => {
+    // console.log("trans")
+    const user = getState()
     dispatch(addTransactionRequest());
     axios
       .post("https://mod-living-db.herokuapp.com/transaction",{
-        user_id: 1,
+        user_id: user.auth.user_data[0].id,
         title: payload.title,
         type: payload.type,
         amount: Number(payload.amount),

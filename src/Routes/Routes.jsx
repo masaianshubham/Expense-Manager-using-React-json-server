@@ -3,8 +3,8 @@ import { Route } from "react-router-dom"
 import Landing from "../Components/Landing"
 import Login from "../Components/Login"
 import Register from "../Components/Register"
-// import Dashbosrd from "../Components/Dashboard"
-// import Ledger from "../Components/Ledger"
+import {Dashboard} from "../Components/Dashboard"
+import {Ledger} from "../Components/Ledger"
 
 function Routes(){
     return(

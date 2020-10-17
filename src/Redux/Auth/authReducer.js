@@ -1,12 +1,14 @@
 import { REGISTER_USERS_REQUEST, REGISTER_USERS_SUCCESS, REGISTER_USERS_FAILURE, 
     LOGIN_USERS_REQUEST,LOGIN_USERS_SUCCESS,LOGIN_USERS_FAILURE,LOGOUT_USER,REMOVE_ERROR, } from "./actionType"
 
+import {loadData,saveData} from '../locaStorage'
+
 export const initState = {
     isLoading: false,
-    user_data: {},
+    user_data: loadData("user") || [],
     message: "",
     isError: false,
-    isAuth: false,
+    isAuth: saveData("isAuth") || false,
     current_user: "",
 }
 
@@ -43,6 +45,8 @@ export default (state = initState, { type, payload }) => {
                 isError: false,
             }
         case LOGIN_USERS_SUCCESS:
+            saveData("user", payload)
+            saveData("isAuth", true)
             return {
                 ...state,
                 isLoading: false,
