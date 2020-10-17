@@ -1,0 +1,41 @@
+.dashboardCard {
+    display:grid;
+    grid-template-columns:auto auto 33%;
+}
+
+.dashboardCard > *{
+    background-color: aqua;
+    margin: 20px;
+    padding: 5px;
+    font-size: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 10px 10px 10px rgb(187, 205, 206);
+}
+
+.inp {
+    border:none;
+    outline: none;
+    background-color:transparent;
+    border-bottom: 1px solid rgba(78, 78, 78, 0.664);
+}
+
+.inp::placeholder{
+    
+}
+
+.newForm {
+    background-color: rgba(78, 78, 78, 0.664);
+    width: 70%;
+    text-align: left;
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.newForm form{
+    margin:0 25%;
+    padding: 30px;
+}
+
